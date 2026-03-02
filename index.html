@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ONYXII AI Automation Preview</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+body {
+  font-family: 'Inter', sans-serif;
+  background: radial-gradient(circle at top left, #0f172a, #020617);
+  color: white;
+}
+
+/* Glass */
+.glass {
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+/* Neon glow */
+.neon {
+  box-shadow: 0 0 25px rgba(0,255,255,0.35);
+}
+
+/* Chat bubbles */
+.chat-user {
+  background: rgba(255,255,255,0.08);
+}
+
+.chat-ai {
+  background: linear-gradient(135deg,#00f5ff,#7c3aed);
+}
+
+/* Animations */
+.fade-in {
+  opacity:0;
+  transform:translateY(10px);
+  transition:all .4s ease;
+}
+.fade-in.show {
+  opacity:1;
+  transform:translateY(0);
+}
+
+.rotate { transform: rotate(180deg); }
+
+.typing span {
+  animation: blink 1.4s infinite both;
+}
+.typing span:nth-child(2) { animation-delay: .2s; }
+.typing span:nth-child(3) { animation-delay: .4s; }
+
+@keyframes blink {
+  0% { opacity:.2; }
+  20% { opacity:1; }
+  100% { opacity:.2; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HERO -->
+<section class="text-center py-24 px-6">
+<h1 class="text-5xl font-bold mb-6 bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">
+AI Support Automation for ONYXII
+</h1>
+
+<p class="text-gray-300 text-lg max-w-2xl mx-auto mb-6">
+Automating order tracking, returns & Instagram DMs for ONYXII’s UK customers — instantly and 24/7.
+</p>
+
+<p class="text-cyan-400 font-semibold mb-10">
+Designed specifically for ONYXII UK operations
+</p>
+
+<button onclick="document.getElementById('track').scrollIntoView({behavior:'smooth'})"
+class="px-8 py-4 rounded-xl bg-gradient-to-r from-cyan-400 to-purple-500 font-semibold neon">
+View Live Demo
+</button>
+</section>
+
+
+<!-- TRACK ORDER -->
+<section id="track" class="py-20 px-6">
+<h2 class="text-3xl font-semibold text-center mb-12">Track My Order</h2>
+
+<div class="max-w-xl mx-auto glass rounded-2xl p-8 neon">
+
+<div class="flex gap-3">
+<input id="orderInput" type="text"
+placeholder="Enter Order ID (e.g. #4821)"
+class="flex-1 bg-transparent border border-gray-600 rounded-xl px-4 py-3 focus:outline-none">
+<button onclick="trackOrder()"
+class="px-6 rounded-xl bg-gradient-to-r from-cyan-400 to-purple-500">
+Track
+</button>
+</div>
+
+<div id="orderChat" class="mt-8 space-y-4 hidden">
+
+<div class="chat-user p-4 rounded-xl w-fit">
+Where is my ONYXII order <span id="displayId"></span>?
+</div>
+
+<div id="typingIndicator" class="chat-ai p-4 rounded-xl w-fit ml-auto hidden typing">
+<span>.</span><span>.</span><span>.</span>
+</div>
+
+<div id="orderReply" class="chat-ai p-4 rounded-xl w-fit ml-auto fade-in hidden"></div>
+
+</div>
+</div>
+</section>
+
+
+<!-- LIVE AI DEMO -->
+<section class="py-24 px-6">
+<h2 class="text-3xl font-semibold text-center mb-12">
+Live AI Conversation Example
+</h2>
+
+<div class="max-w-xl mx-auto glass rounded-2xl p-8 neon space-y-4">
+
+<div class="chat-user p-4 rounded-xl w-fit">
+Hi, when will my ONYXII order arrive?
+</div>
+
+<div class="chat-ai p-4 rounded-xl w-fit ml-auto">
+Hi Charlotte 👋 <br><br>
+Your order is currently in our London fulfilment centre.<br>
+Estimated delivery: 3–4 working days.<br>
+Tracking link has been sent to your email.
+</div>
+
+<div class="chat-user p-4 rounded-xl w-fit">
+Can I return it if it doesn’t fit?
+</div>
+
+<div class="chat-ai p-4 rounded-xl w-fit ml-auto">
+Absolutely. ONYXII offers a 14-day hassle-free return policy.<br>
+Would you like me to send you the return link?
+</div>
+
+</div>
+
+<p class="text-center text-gray-400 mt-8">
+AI operates automatically across Shopify checkout & Instagram DMs.
+</p>
+</section>
+
+
+<!-- FAQ -->
+<section class="py-20 px-6">
+<h2 class="text-3xl font-semibold text-center mb-12">Instant FAQ Automation</h2>
+
+<div class="max-w-3xl mx-auto space-y-4">
+
+<div class="glass p-5 rounded-xl cursor-pointer neon" onclick="toggleFAQ(this)">
+<div class="flex justify-between items-center">
+<h3>What is ONYXII’s return policy?</h3>
+<span class="arrow transition">▼</span>
+</div>
+<p class="mt-4 text-gray-300 hidden">
+ONYXII offers a 14-day hassle-free return on unworn items.
+Refunds are processed within 2–3 working days after inspection.
+</p>
+</div>
+
+<div class="glass p-5 rounded-xl cursor-pointer neon" onclick="toggleFAQ(this)">
+<div class="flex justify-between items-center">
+<h3>How long does UK delivery take?</h3>
+<span class="arrow transition">▼</span>
+</div>
+<p class="mt-4 text-gray-300 hidden">
+Standard UK delivery: 3–5 working days.
+Next-day delivery available for orders placed before 2PM.
+All parcels are fully tracked.
+</p>
+</div>
+
+<div class="glass p-5 rounded-xl cursor-pointer neon" onclick="toggleFAQ(this)">
+<div class="flex justify-between items-center">
+<h3>How do I choose the correct size?</h3>
+<span class="arrow transition">▼</span>
+</div>
+<p class="mt-4 text-gray-300 hidden">
+Each product page includes a detailed ONYXII size guide.
+If unsure, our AI assistant recommends the best fit instantly.
+</p>
+</div>
+
+</div>
+</section>
+
+
+<!-- PRODUCTS -->
+<section class="py-24 px-6">
+<h2 class="text-3xl font-semibold text-center mb-16">
+ONYXII Featured Collection
+</h2>
+
+<div class="grid md:grid-cols-4 gap-8 max-w-7xl mx-auto">
+
+<div class="glass rounded-2xl overflow-hidden neon hover:scale-105 transition duration-300">
+<img src="https://images.unsplash.com/photo-1520975916090-3105956dac38" class="w-full h-64 object-cover">
+<div class="p-6">
+<h3 class="text-lg font-semibold">Midnight Satin Dress</h3>
+<p class="text-cyan-400 text-xl mt-2">£79</p>
+<button class="mt-4 w-full py-3 rounded-xl bg-gradient-to-r from-cyan-400 to-purple-500">
+Buy Now
+</button>
+</div>
+</div>
+
+<div class="glass rounded-2xl overflow-hidden neon hover:scale-105 transition duration-300">
+<img src="https://images.unsplash.com/photo-1496747611176-843222e1e57c" class="w-full h-64 object-cover">
+<div class="p-6">
+<h3 class="text-lg font-semibold">Floral Summer Dress</h3>
+<p class="text-cyan-400 text-xl mt-2">£65</p>
+<button class="mt-4 w-full py-3 rounded-xl bg-gradient-to-r from-cyan-400 to-purple-500">
+Buy Now
+</button>
+</div>
+</div>
+
+<div class="glass rounded-2xl overflow-hidden neon hover:scale-105 transition duration-300">
+<img src="https://images.unsplash.com/photo-1519741497674-611481863552" class="w-full h-64 object-cover">
+<div class="p-6">
+<h3 class="text-lg font-semibold">Elegant Evening Gown</h3>
+<p class="text-cyan-400 text-xl mt-2">£129</p>
+<button class="mt-4 w-full py-3 rounded-xl bg-gradient-to-r from-cyan-400 to-purple-500">
+Buy Now
+</button>
+</div>
+</div>
+
+<div class="glass rounded-2xl overflow-hidden neon hover:scale-105 transition duration-300">
+<img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c" class="w-full h-64 object-cover">
+<div class="p-6">
+<h3 class="text-lg font-semibold">Classic Black Mini</h3>
+<p class="text-cyan-400 text-xl mt-2">£54</p>
+<button class="mt-4 w-full py-3 rounded-xl bg-gradient-to-r from-cyan-400 to-purple-500">
+Buy Now
+</button>
+</div>
+</div>
+
+</div>
+</section>
+
+
+<!-- BEFORE VS AFTER -->
+<section class="py-24 px-6">
+<h2 class="text-4xl font-bold text-center mb-16">
+Before vs After AI Automation
+</h2>
+
+<div class="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
+
+<div class="glass rounded-2xl p-10 border border-red-500/30">
+<h3 class="text-2xl font-semibold text-red-400 mb-8">
+❌ Before – Manual Support
+</h3>
+<div class="space-y-6 text-gray-300">
+<p><strong>250+ messages/day</strong></p>
+<p><strong>2–4 hour delays</strong></p>
+<p><strong>Missed Instagram DMs</strong></p>
+<p><strong>2–3 support staff required</strong></p>
+</div>
+</div>
+
+<div class="glass rounded-2xl p-10 border border-cyan-400/40 neon">
+<h3 class="text-2xl font-semibold text-cyan-400 mb-8">
+✅ After – AI Automation
+</h3>
+<div class="space-y-6 text-gray-300">
+<p><strong>Up to 80% fewer messages</strong></p>
+<p><strong>Instant replies (<3 sec)</strong></p>
+<p><strong>0% missed DMs</strong></p>
+<p><strong>1 supervisor only</strong></p>
+</div>
+</div>
+
+</div>
+
+<div class="text-center mt-20">
+<h3 class="text-3xl font-semibold mb-6">
+Estimated Annual Savings
+</h3>
+<p class="text-6xl font-bold bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">
+£18,000+
+</p>
+</div>
+</section>
+
+
+<!-- CTA -->
+<section class="text-center py-20">
+<h2 class="text-3xl font-semibold mb-6">
+Ready to Automate ONYXII Support?
+</h2>
+<button class="px-8 py-4 rounded-xl bg-gradient-to-r from-cyan-400 to-purple-500 neon">
+Book AI Demo Call
+</button>
+</section>
+
+
+<script>
+function trackOrder() {
+  const input = document.getElementById("orderInput").value;
+  if (!input) return;
+
+  document.getElementById("displayId").innerText = input;
+  document.getElementById("orderChat").classList.remove("hidden");
+
+  const typing = document.getElementById("typingIndicator");
+  const reply = document.getElementById("orderReply");
+
+  typing.classList.remove("hidden");
+  reply.classList.add("hidden");
+
+  setTimeout(() => {
+    typing.classList.add("hidden");
+    reply.innerHTML = `
+      Hi Olivia 👋<br><br>
+      Your ONYXII order ${input} is being prepared.<br>
+      Estimated UK delivery: 3–5 working days.<br>
+      Tracking link will be sent shortly.
+    `;
+    reply.classList.remove("hidden");
+    reply.classList.add("show");
+  }, 1500);
+}
+
+function toggleFAQ(element) {
+  const p = element.querySelector("p");
+  const arrow = element.querySelector(".arrow");
+  p.classList.toggle("hidden");
+  arrow.classList.toggle("rotate");
+}
+</script>
+
+</body>
+</html>
